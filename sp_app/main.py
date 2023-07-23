@@ -15,44 +15,9 @@ from fastapi_cache.backends.redis import RedisBackend
 
 from redis import asyncio as aioredis
 
-
 app = FastAPI(
     title="SP133_app"
 )
-'''
-origins = ["http://185.180.230.68:3099",]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["GET"],
-    allow_headers=["*"],
-)
-'''
-
-@app.middleware("http")
-async def add_cors_headers(request, call_next):
-    response = await call_next(request)
-    response.headers["Access-Control-Allow-Origin"] = "http://185.180.230.68:3099, http://localhost:3099"
-    response.headers["Access-Control-Allow-Credentials"] = "true"
-    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
-    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
-    return response
-
-origins = [
-    "http://185.180.230.68:3099",
-    "http://localhost:3099",
-]
-
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
-
 
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),
@@ -86,3 +51,14 @@ def unprotected_route():
 async def startup_event():
     redis = aioredis.from_url("redis://localhost", encoding="utf8", decode_responses=True)
     FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
+
+origins = ["http://185.180.230.68:3099",]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET"],
+    allow_headers=["Accept-Language", "Content-Language", "Access-Control-Allow-Headers",
+                   "Access-Control-Expose-Headers", "Access-Control-Request-Headers", "Access-Control-Allow-Origin"],
+)
