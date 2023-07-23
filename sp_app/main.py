@@ -19,6 +19,18 @@ app = FastAPI(
     title="SP133_app"
 )
 
+origins = ["http://185.180.230.68:3099",]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["GET"],
+    allow_headers=["Accept-Language", "Content-Language", "Access-Control-Allow-Headers",
+                   "Access-Control-Expose-Headers", "Access-Control-Request-Headers", "Access-Control-Allow-Origin"],
+)
+
+
 app.include_router(
     fastapi_users.get_auth_router(auth_backend),
     prefix="/auth/jwt",
@@ -36,16 +48,7 @@ app.include_router(latitude_router)
 app.include_router(send_report)
 app.include_router(router_pages)
 
-origins = ["http://185.180.230.68:3099",]
 
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=origins,
-    allow_credentials=True,
-    allow_methods=["GET"],
-    allow_headers=["Accept-Language", "Content-Language", "Access-Control-Allow-Headers",
-                   "Access-Control-Expose-Headers", "Access-Control-Request-Headers", "Access-Control-Allow-Origin"],
-)
 @app.get("/protected-route")
 def protected_route(user: User = Depends(current_user)):
     return f"Hello, {user.email}"
