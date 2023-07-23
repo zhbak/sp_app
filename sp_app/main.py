@@ -15,10 +15,11 @@ from fastapi_cache.backends.redis import RedisBackend
 
 from redis import asyncio as aioredis
 
+
 app = FastAPI(
     title="SP133_app"
 )
-
+'''
 origins = ["http://185.180.230.68:3099",]
 
 app.add_middleware(
@@ -26,6 +27,29 @@ app.add_middleware(
     allow_origins=origins,
     allow_credentials=True,
     allow_methods=["GET"],
+    allow_headers=["*"],
+)
+'''
+
+@app.middleware("http")
+async def add_cors_headers(request, call_next):
+    response = await call_next(request)
+    response.headers["Access-Control-Allow-Origin"] = "http://185.180.230.68:3099, http://localhost:3099"
+    response.headers["Access-Control-Allow-Credentials"] = "true"
+    response.headers["Access-Control-Allow-Methods"] = "GET, POST, PUT, DELETE, OPTIONS"
+    response.headers["Access-Control-Allow-Headers"] = "Content-Type, Authorization"
+    return response
+
+origins = [
+    "http://185.180.230.68:3099",
+    "http://localhost:3099",
+]
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=origins,
+    allow_credentials=True,
+    allow_methods=["*"],
     allow_headers=["*"],
 )
 
