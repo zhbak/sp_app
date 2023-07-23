@@ -1,0 +1,11 @@
+COPY table_3_1 FROM 'fastapi_app/data/DB_table_3.1.csv' DELIMITER ',' CSV HEADER;
+COPY table_4_1 FROM '/data/DB_table_4.1.csv' DELIMITER ',' CSV HEADER;
+COPY table_5_1 FROM '/data/DB_table_5.1.csv' DELIMITER ',' CSV HEADER;
+COPY table_6_1 FROM '/data/DB_table_6.1.csv' DELIMITER ',' CSV HEADER;
+COPY table_7_1 FROM '/data/DB_table_7.1.csv' DELIMITER ',' CSV HEADER;
+COPY table_8_1 FROM '/data/DB_table_8.1.csv' DELIMITER ',' CSV HEADER;
+COPY table_9_1 FROM '/data/DB_table_9.1.csv' DELIMITER ',' CSV HEADER;
+COPY table_10_2 FROM '/data/DB_table_10.2.csv' DELIMITER ',' CSV HEADER;
+COPY table_11_1_1 FROM '/data/DB_table_11.1_1.csv' DELIMITER ',' CSV HEADER;
+COPY table_11_1_2 FROM '/data/DB_table_11.1_2.csv' DELIMITER ',' CSV HEADER;
+COPY table_13_1 FROM '/data/DB_table_13.1.csv' DELIMITER ',' CSV HEADER;
