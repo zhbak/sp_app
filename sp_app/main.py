@@ -42,8 +42,8 @@ app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["GET", "HEAD", "POST", "PUT", "DELETE", "CONNECT", "OPTIONS", "TRACE", "PATCH"],
-    allow_headers=["Content-Length", "Content-Type", "Date", "Server", "X-Content-Type-Options", "Accept-Language", "Content-Language", "Access-Control-Allow-Headers",
+    allow_methods=["GET"],
+    allow_headers=["Accept-Language", "Content-Language", "Access-Control-Allow-Headers",
                    "Access-Control-Expose-Headers", "Access-Control-Request-Headers", "Access-Control-Allow-Origin"],
 )
 @app.get("/protected-route")
