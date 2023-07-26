@@ -36,7 +36,6 @@ app.include_router(latitude_router)
 app.include_router(send_report)
 app.include_router(router_pages)
 
-
 origins = ["http://185.180.230.68:3099",
             "http://172.26.0.4:3000",]
 
@@ -45,7 +44,7 @@ app.add_middleware(
     allow_origins=origins,
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["*"],
+    allow_headers=["Access-Control-Allow-Origin"],
 )
 
 @app.get("/protected-route")
