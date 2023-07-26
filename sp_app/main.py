@@ -60,7 +60,7 @@ class CORSMiddleware:
         preflight_headers = {}
         if preflight_explicit_allow_origin:
             # The origin value will be set in preflight_response() if it is allowed.
-            preflight_headers["Vary"] = "Origin"
+            preflight_headers["Vary"] = "Access-Control-Allow-Origin"
         else:
             preflight_headers["Access-Control-Allow-Origin"] = "*"
         preflight_headers.update(
@@ -171,7 +171,7 @@ class CORSMiddleware:
         message.setdefault("headers", [])
         headers = MutableHeaders(scope=message)
         headers.update(self.simple_headers)
-        origin = request_headers["Origin"]
+        origin = request_headers["Access-Control-Allow-Origin"]
         has_cookie = "cookie" in request_headers
 
         # If request includes any cookie headers, then we must respond
