@@ -474,21 +474,41 @@ function DropdownBar() {
         return;
     } 
 
-    axios
-      .get(`http://185.180.230.68:8099/climate_report/?climate_report_location=${selected.map(option => option.value).join('_')}`)
-      .then(res => {
-        console.log(res.data.data);
-        setReportData(res.data.data);
+   //* axios
+    //*  .get(`http://185.180.230.68:8099/climate_report/?climate_report_location=${selected.map(option => option.value).join('_')}`)
+    //*  .then(res => {
+    //*    console.log(res.data.data);
+    //*    setReportData(res.data.data);
+     //* });
+
+      fetch(`http://185.180.230.68:8099/climate_report/?climate_report_location=${selected.map(option => option.value).join('_')}`)
+      .then(response => response.json())
+      .then(data => {
+          console.log(data);
+          setReportData(data);
+      })
+      .catch(error => {
+          console.error("Error fetching data:", error);
       });
   };
 
   const handleSubmitLatitude = () => {
-    axios
-        .get(`http://185.180.230.68:8099/climate_report/latitude/?latitude=${inputValue}`)
-        .then(res => {
-            console.log(res.data.data)
-            setSubmitLatitude(res.data.data)
-        })
+    //*axios
+     //*   .get(`http://185.180.230.68:8099/climate_report/latitude/?latitude=${inputValue}`)
+     //*   .then(res => {
+     //*       console.log(res.data.data)
+     //*       setSubmitLatitude(res.data.data)
+     //*   })
+
+    fetch(`http://185.180.230.68:8099/climate_report/latitude/?latitude=${inputValue}`)
+      .then(response => response.json())
+      .then(data => {
+        console.log(data.data);
+        setSubmitLatitude(data.data);
+      })
+      .catch(error => {
+        console.error("Error fetching data:", error);
+      });
   }
 
   const renderTable = () => {
