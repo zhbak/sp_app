@@ -3,25 +3,6 @@ from auth.schemas import UserRead, UserCreate
 from database import User
 from fastapi import FastAPI, Depends
 import models
-from starlette.middleware.base import BaseHTTPMiddleware
-from datetime import datetime, time, timedelta
-import time
-
-from fastapi import (
-    Body,
-    Depends,
-    FastAPI,
-    Query,
-    Path,
-    Cookie,
-    Header,
-    status,
-    Form,
-    File,
-    UploadFile,
-    HTTPException,
-    Request,
-)
 
 from climate_report.router import router as climate_report_router
 from fastapi.middleware.cors import CORSMiddleware
@@ -55,31 +36,17 @@ app.include_router(latitude_router)
 app.include_router(send_report)
 app.include_router(router_pages)
 
-'''
+
 origins = ["http://185.180.230.68:3099",]
 
 app.add_middleware(
     CORSMiddleware,
     allow_origins=origins,
     allow_credentials=True,
-    allow_methods=["GET"],
+    allow_methods=["GET", "POST", "OPTIONS"],
     allow_headers=["Accept-Language", "Content-Language", "Access-Control-Allow-Headers",
                    "Access-Control-Expose-Headers", "Access-Control-Request-Headers", "Access-Control-Allow-Origin"],
 )
-'''
-
-class MyMiddleware(BaseHTTPMiddleware):
-    async def dispatch(self, request: Request, call_next):
-        start_time = time.time()
-        response = await call_next(request)
-        process_time = time.time() - start_time
-        response.headers["X-Process-Time"] = str(process_time)
-        return response
-
-
-origins = ["http://185.180.230.68:3099", "http://185.180.230.68:8099"]
-app.add_middleware(MyMiddleware)
-app.add_middleware(CORSMiddleware, allow_origins=origins)
 
 @app.get("/protected-route")
 def protected_route(user: User = Depends(current_user)):
