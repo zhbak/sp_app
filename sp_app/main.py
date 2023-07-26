@@ -38,7 +38,8 @@ app.include_router(router_pages)
 
 
 
-origins = ["http://185.180.230.68:3099",]
+origins = ["http://185.180.230.68:3099",
+           "http://vm2369406.firstbyte.club"]
 
 app.add_middleware(
     CORSMiddleware,
