@@ -44,8 +44,7 @@ app.add_middleware(
     allow_origins=origins,
     allow_credentials=True,
     allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Accept-Language", "Content-Language", "Access-Control-Allow-Headers",
-                   "Access-Control-Expose-Headers", "Access-Control-Request-Headers", "Access-Control-Allow-Origin"],
+    allow_headers=["*"],
 )
 
 @app.get("/protected-route")
